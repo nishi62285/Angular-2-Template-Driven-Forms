@@ -1,0 +1,64 @@
+<form novalidate #f="ngForm" (ngSubmit)="onSubmit(f)">
+  <label>
+    <span>Full name</span>
+    <input
+      type="text"
+      placeholder="Your full name"
+      name="name"
+      [(ngModel)]="user.name"
+      #userName="ngModel"
+      minlength="2"
+      required>
+  </label>
+  <label *ngIf="userName.errors?.required && userName.touched" class="error">
+    Name is required
+   </label>&nbsp;&nbsp;
+   <label *ngIf="userName.errors?.minlength && userName.touched" class="error">
+    Minimum of 2 characters
+   </label>
+   <br>
+   <br>
+   <label>
+<span>Gender</span>
+<input type="radio" value="male" name="gender" ngModel> Male &nbsp;
+<input type="radio" value="female" name="gender" ngModel> Female
+<br><br>
+   </label>
+  <div ngModelGroup="account" #userAccount="ngModelGroup">
+    <label>
+      <span>Email address</span>
+      <input
+        type="email"
+        placeholder="Your email address"
+        name="email"
+        [(ngModel)]="user.account.email"
+        #userEmail="ngModel"
+        required
+        email>
+        <label *ngIf="userEmail.errors?.email">
+Enter valid email address
+        </label>
+        <label *ngIf="userEmail.errors?.required">
+          Eemail address is required
+        </label>
+    </label>
+    <br>
+   <br>
+    <label>
+      <span>address</span>
+      <input
+        type="text"
+        placeholder=" your  address"
+        name="address"
+        [(ngModel)]="user.account.address"
+        #userAddress="ngModel"
+        required>
+    </label>
+    <br>
+   <br> 
+  </div>
+  <button type="submit" [disabled]="f.invalid">Sign up</button>
+  <br>
+  <br>
+  Form Value : {{ f.value  | json}}
+</form>
